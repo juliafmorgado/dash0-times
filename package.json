@@ -4,7 +4,7 @@
   "description": "Dash0 Times - A full-stack demo application for generating realistic telemetry signals",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"pnpm --filter frontend dev\" \"pnpm --filter backend dev\" --names \"frontend,backend\" --prefix-colors \"cyan,yellow\"",
+    "dev": "concurrently \"pnpm --filter dash0-times-frontend dev\" \"pnpm --filter backend dev\" --names \"🌐frontend,⚡backend\" --prefix-colors \"cyan,yellow\" --kill-others-on-fail --restart-tries 3",
     "install:all": "pnpm install",
     "build": "pnpm --filter frontend build && pnpm --filter backend build",
     "start": "pnpm --filter backend start",

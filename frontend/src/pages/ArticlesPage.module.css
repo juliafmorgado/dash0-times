@@ -1,0 +1,374 @@
+/* Articles Page - Dash0 Styling */
+.articlesPage {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+/* Page Header */
+.pageTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.pageDescription {
+  font-size: 1.125rem;
+  color: #a3a3a3;
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Content Layout */
+.contentLayout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.mainContent {
+  min-width: 0; /* Prevents grid overflow */
+}
+
+.sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+/* Filter Section */
+.filterSection {
+  padding: 1.5rem;
+  background-color: #262626;
+  border-radius: 0.75rem;
+  border: 1px solid #404040;
+}
+
+.filterTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.tagFilters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tagButton {
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 1px solid #404040;
+  border-radius: 0.375rem;
+  color: #a3a3a3;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  text-align: left;
+  width: 100%;
+}
+
+.tagButton:hover {
+  border-color: #FF6B47;
+  color: #ffffff;
+  background-color: rgba(255, 107, 71, 0.1);
+}
+
+.tagButtonActive {
+  background-color: #FF6B47;
+  border-color: #FF6B47;
+  color: #ffffff;
+}
+
+/* Loading State */
+.loadingState {
+  padding: 2rem 0;
+}
+
+/* Error State */
+.errorState {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.errorMessage {
+  color: #ef4444;
+  font-size: 1.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.retryButton {
+  padding: 0.75rem 1.5rem;
+  background-color: #FF6B47;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease-in-out;
+}
+
+.retryButton:hover {
+  background-color: #e55a3a;
+}
+
+/* Articles Container */
+.articlesContainer {
+  margin-bottom: 2rem;
+}
+
+.articlesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Article Card */
+.articleCard {
+  background-color: #262626;
+  border: 1px solid #404040;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: all 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+.articleCard:hover {
+  border-color: #FF6B47;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.articleContent {
+  width: 100%;
+}
+
+.articleTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+
+.articleTitleLink {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.25s ease-in-out;
+}
+
+.articleTitleLink:hover {
+  color: #FF6B47;
+}
+
+.articleExcerpt {
+  color: #a3a3a3;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.articleMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.articleTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.articleTag {
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(255, 107, 71, 0.1);
+  border: 1px solid rgba(255, 107, 71, 0.3);
+  border-radius: 0.25rem;
+  color: #FF6B47;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.articleTag:hover {
+  background-color: rgba(255, 107, 71, 0.2);
+  border-color: #FF6B47;
+}
+
+.articleInfo {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #737373;
+}
+
+.articleDate {
+  font-weight: 500;
+}
+
+.articleAuthor {
+  color: #a3a3a3;
+}
+
+
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #a3a3a3;
+}
+
+.clearFilterButton {
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #FF6B47;
+  border: 1px solid #FF6B47;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  margin-top: 1rem;
+}
+
+.clearFilterButton:hover {
+  background-color: #FF6B47;
+  color: #ffffff;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.paginationButton {
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  color: #a3a3a3;
+  border: 1px solid #404040;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.paginationButton:hover:not(.paginationButtonDisabled) {
+  border-color: #FF6B47;
+  color: #ffffff;
+  background-color: rgba(255, 107, 71, 0.1);
+}
+
+.paginationButtonDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginationNumbers {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.paginationNumber {
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  color: #a3a3a3;
+  border: 1px solid #404040;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  min-width: 3rem;
+}
+
+.paginationNumber:hover {
+  border-color: #FF6B47;
+  color: #ffffff;
+  background-color: rgba(255, 107, 71, 0.1);
+}
+
+.paginationNumberActive {
+  background-color: #FF6B47;
+  border-color: #FF6B47;
+  color: #ffffff;
+}
+
+/* Results Summary */
+.resultsSummary {
+  text-align: center;
+  color: #737373;
+  font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contentLayout {
+    grid-template-columns: 1fr 250px;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .articlesPage {
+    padding: 1rem 0.5rem;
+  }
+  
+  .pageTitle {
+    font-size: 2rem;
+  }
+  
+  .contentLayout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .sidebar {
+    position: static;
+    order: -1; /* Show filter above articles on mobile */
+  }
+  
+  .tagFilters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .tagButton {
+    width: auto;
+    text-align: center;
+  }
+  
+
+  
+  .pagination {
+    flex-wrap: wrap;
+  }
+  
+  .paginationNumbers {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+}

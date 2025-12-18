@@ -1,0 +1,125 @@
+/* Banner component for CLS demonstration with Dash0 branding */
+.banner {
+  background: linear-gradient(135deg, #FF6B47 0%, #FF4444 100%); /* Dash0 primary gradient */
+  color: #ffffff; /* Dash0 text primary */
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  border-radius: 1rem; /* Dash0 border radius lg */
+  box-shadow: 0 10px 25px rgba(255, 107, 71, 0.3); /* Dash0 shadow with orange tint */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideInFromTop 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background pattern for Dash0 branding */
+.banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></svg>') repeat;
+  pointer-events: none;
+}
+
+.bannerContent {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.bannerIcon {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+}
+
+.bannerText {
+  flex: 1;
+  min-width: 0;
+}
+
+.bannerTitle {
+  font-size: 1.5rem; /* Dash0 font size xl */
+  font-weight: 700; /* Dash0 font weight bold */
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.bannerMessage {
+  font-size: 1rem; /* Dash0 font size base */
+  font-weight: 400; /* Dash0 font weight normal */
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5; /* Dash0 line height normal */
+}
+
+
+
+/* Animation for banner appearance */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .banner {
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 1rem;
+  }
+  
+  .bannerContent {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .bannerIcon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+  }
+  
+  .bannerTitle {
+    font-size: 1.25rem;
+  }
+  
+  .bannerMessage {
+    font-size: 0.875rem;
+  }
+  
+
+}
+
+@media (max-width: 480px) {
+  .bannerContent {
+    gap: 0.75rem;
+  }
+  
+  .bannerTitle {
+    font-size: 1.125rem;
+  }
+  
+  .bannerMessage {
+    font-size: 0.8125rem;
+  }
+}

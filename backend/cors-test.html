@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test - Dash0 Times</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-color: #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .status {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 CORS Configuration Test</h1>
+        <p>This page tests the CORS configuration of the Dash0 Times backend API.</p>
+        
+        <div class="test-section info">
+            <h3>Test Information</h3>
+            <p><strong>Current Origin:</strong> <span id="current-origin"></span></p>
+            <p><strong>Backend URL:</strong> http://localhost:3001</p>
+            <p><strong>Expected Behavior:</strong> All requests should succeed with proper CORS headers</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🔧 Test Controls</h3>
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+
+        <div id="test-results"></div>
+    </div>
+
+    <script>
+        // Display current origin
+        document.getElementById('current-origin').textContent = window.location.origin;
+
+        const API_BASE = 'http://localhost:3001';
+        
+        const tests = [
+            {
+                name: 'Health Check',
+                endpoint: '/api/health',
+                method: 'GET'
+            },
+            {
+                name: 'Articles List',
+                endpoint: '/api/articles',
+                method: 'GET'
+            },
+            {
+                name: 'Search Request',
+                endpoint: '/api/search?q=test',
+                method: 'GET'
+            },
+            {
+                name: 'Recommendations',
+                endpoint: '/api/recommendation',
+                method: 'GET'
+            },
+            {
+                name: 'Articles with Demo User Header',
+                endpoint: '/api/articles',
+                method: 'GET',
+                headers: { 'x-demo-user': 'pro-user' }
+            },
+            {
+                name: 'Preflight OPTIONS Request',
+                endpoint: '/api/articles',
+                method: 'OPTIONS'
+            }
+        ];
+
+        async function runTest(test) {
+            const startTime = performance.now();
+            
+            try {
+                const options = {
+                    method: test.method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...test.headers
+                    }
+                };
+
+                const response = await fetch(`${API_BASE}${test.endpoint}`, options);
+                const endTime = performance.now();
+                const duration = Math.round(endTime - startTime);
+
+                let data = null;
+                if (response.status !== 204) { // Skip parsing for OPTIONS requests
+                    try {
+                        data = await response.json();
+                    } catch (e) {
+                        data = await response.text();
+                    }
+                }
+
+                return {
+                    success: true,
+                    status: response.status,
+                    statusText: response.statusText,
+                    duration,
+                    data,
+                    headers: Object.fromEntries(response.headers.entries())
+                };
+            } catch (error) {
+                const endTime = performance.now();
+                const duration = Math.round(endTime - startTime);
+
+                return {
+                    success: false,
+                    error: error.message,
+                    duration
+                };
+            }
+        }
+
+        function createTestResultElement(testName, result) {
+            const div = document.createElement('div');
+            div.className = `test-section ${result.success ? 'success' : 'error'}`;
+            
+            let html = `<h4>${testName}</h4>`;
+            
+            if (result.success) {
+                html += `
+                    <div class="status">✅ SUCCESS</div>
+                    <p><strong>Status:</strong> ${result.status} ${result.statusText}</p>
+                    <p><strong>Duration:</strong> ${result.duration}ms</p>
+                `;
+                
+                // Check for CORS headers
+                const corsHeaders = {};
+                Object.keys(result.headers).forEach(key => {
+                    if (key.toLowerCase().startsWith('access-control-')) {
+                        corsHeaders[key] = result.headers[key];
+                    }
+                });
+                
+                if (Object.keys(corsHeaders).length > 0) {
+                    html += `<p><strong>CORS Headers:</strong></p><pre>${JSON.stringify(corsHeaders, null, 2)}</pre>`;
+                } else {
+                    html += `<p><strong>CORS Headers:</strong> None (may be normal for same-origin requests)</p>`;
+                }
+                
+                if (result.data && typeof result.data === 'object') {
+                    const dataPreview = JSON.stringify(result.data, null, 2);
+                    if (dataPreview.length > 500) {
+                        html += `<p><strong>Response Data:</strong></p><pre>${dataPreview.substring(0, 500)}...</pre>`;
+                    } else {
+                        html += `<p><strong>Response Data:</strong></p><pre>${dataPreview}</pre>`;
+                    }
+                }
+            } else {
+                html += `
+                    <div class="status">❌ FAILED</div>
+                    <p><strong>Error:</strong> ${result.error}</p>
+                    <p><strong>Duration:</strong> ${result.duration}ms</p>
+                `;
+            }
+            
+            div.innerHTML = html;
+            return div;
+        }
+
+        async function runAllTests() {
+            const resultsContainer = document.getElementById('test-results');
+            resultsContainer.innerHTML = '<div class="test-section info"><h3>🔄 Running Tests...</h3></div>';
+            
+            let passed = 0;
+            let failed = 0;
+            
+            for (const test of tests) {
+                const result = await runTest(test);
+                const resultElement = createTestResultElement(test.name, result);
+                resultsContainer.appendChild(resultElement);
+                
+                if (result.success) {
+                    passed++;
+                } else {
+                    failed++;
+                }
+                
+                // Small delay between tests
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            
+            // Add summary
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = `test-section ${failed === 0 ? 'success' : 'error'}`;
+            summaryDiv.innerHTML = `
+                <h3>📊 Test Summary</h3>
+                <p><strong>Total Tests:</strong> ${tests.length}</p>
+                <p><strong>Passed:</strong> ${passed}</p>
+                <p><strong>Failed:</strong> ${failed}</p>
+                ${failed === 0 ? 
+                    '<p>🎉 All tests passed! CORS is configured correctly.</p>' : 
+                    '<p>❌ Some tests failed. Check the CORS configuration.</p>'
+                }
+            `;
+            resultsContainer.insertBefore(summaryDiv, resultsContainer.firstChild);
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* Error Message Styles with Dash0 Theme */
+
+.errorMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--dash0-spacing-md, 1rem);
+  padding: var(--dash0-spacing-lg, 1.5rem);
+  border: 1px solid;
+  border-radius: var(--dash0-border-radius-lg, 0.5rem);
+  margin: var(--dash0-spacing-lg, 1.5rem) 0;
+}
+
+/* Error variant (default) */
+.errorMessage.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--dash0-color-semantic-error, #ef4444);
+}
+
+/* Warning variant */
+.errorMessage.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: var(--dash0-color-semantic-warning, #f59e0b);
+}
+
+/* Info variant */
+.errorMessage.info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: var(--dash0-color-semantic-info, #3b82f6);
+}
+
+.errorIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.errorMessage.error .errorIcon {
+  color: var(--dash0-color-semantic-error, #ef4444);
+}
+
+.errorMessage.warning .errorIcon {
+  color: var(--dash0-color-semantic-warning, #f59e0b);
+}
+
+.errorMessage.info .errorIcon {
+  color: var(--dash0-color-semantic-info, #3b82f6);
+}
+
+.errorContent {
+  flex: 1;
+}
+
+.errorTitle {
+  margin: 0 0 var(--dash0-spacing-sm, 0.5rem) 0;
+  font-size: var(--dash0-font-size-lg, 1.125rem);
+  font-weight: var(--dash0-font-weight-semibold, 600);
+}
+
+.errorMessage.error .errorTitle {
+  color: var(--dash0-color-semantic-error, #ef4444);
+}
+
+.errorMessage.warning .errorTitle {
+  color: var(--dash0-color-semantic-warning, #f59e0b);
+}
+
+.errorMessage.info .errorTitle {
+  color: var(--dash0-color-semantic-info, #3b82f6);
+}
+
+.errorText {
+  margin: 0 0 var(--dash0-spacing-md, 1rem) 0;
+  font-size: var(--dash0-font-size-base, 1rem);
+  color: var(--dash0-color-text-primary, #ffffff);
+  line-height: var(--dash0-line-height-normal, 1.5);
+}
+
+.errorActions {
+  display: flex;
+  gap: var(--dash0-spacing-sm, 0.5rem);
+  margin-top: var(--dash0-spacing-sm, 0.5rem);
+}
+
+.retryButton {
+  color: var(--dash0-color-text-primary, #ffffff);
+  border: none;
+  border-radius: var(--dash0-border-radius-md, 0.375rem);
+  padding: var(--dash0-spacing-sm, 0.5rem) var(--dash0-spacing-lg, 1.5rem);
+  font-size: var(--dash0-font-size-base, 1rem);
+  font-weight: var(--dash0-font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.errorMessage.error .retryButton {
+  background-color: var(--dash0-color-semantic-error, #ef4444);
+}
+
+.errorMessage.error .retryButton:hover {
+  background-color: #dc2626;
+}
+
+.errorMessage.error .retryButton:focus {
+  outline: 2px solid var(--dash0-color-semantic-error, #ef4444);
+  outline-offset: 2px;
+}
+
+.errorMessage.warning .retryButton {
+  background-color: var(--dash0-color-semantic-warning, #f59e0b);
+}
+
+.errorMessage.warning .retryButton:hover {
+  background-color: #d97706;
+}
+
+.errorMessage.warning .retryButton:focus {
+  outline: 2px solid var(--dash0-color-semantic-warning, #f59e0b);
+  outline-offset: 2px;
+}
+
+.errorMessage.info .retryButton {
+  background-color: var(--dash0-color-semantic-info, #3b82f6);
+}
+
+.errorMessage.info .retryButton:hover {
+  background-color: #2563eb;
+}
+
+.errorMessage.info .retryButton:focus {
+  outline: 2px solid var(--dash0-color-semantic-info, #3b82f6);
+  outline-offset: 2px;
+}
+
+.retryButton:hover {
+  transform: translateY(-1px);
+}
+
+.retryButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .errorMessage {
+    padding: var(--dash0-spacing-md, 1rem);
+  }
+  
+  .errorTitle {
+    font-size: var(--dash0-font-size-base, 1rem);
+  }
+  
+  .errorText {
+    font-size: var(--dash0-font-size-sm, 0.875rem);
+  }
+}

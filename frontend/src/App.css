@@ -1,0 +1,143 @@
+/* Dash0 Times App Styles */
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--dash0-color-background-primary);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dash0-color-background-primary);
+  color: var(--dash0-color-text-primary);
+}
+
+/* Dash0 utility classes */
+.dash0-text-primary {
+  color: var(--dash0-color-text-primary);
+}
+
+.dash0-text-secondary {
+  color: var(--dash0-color-text-secondary);
+}
+
+.dash0-text-muted {
+  color: var(--dash0-color-text-muted);
+}
+
+.dash0-bg-primary {
+  background-color: var(--dash0-color-background-primary);
+}
+
+.dash0-bg-secondary {
+  background-color: var(--dash0-color-background-secondary);
+}
+
+.dash0-border-primary {
+  border-color: var(--dash0-color-border-primary);
+}
+
+.dash0-accent {
+  color: var(--dash0-color-primary-orange);
+}
+
+.dash0-card {
+  background-color: var(--dash0-color-background-secondary);
+  border: 1px solid var(--dash0-color-border-primary);
+  border-radius: 8px;
+  padding: var(--dash0-spacing-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dash0-button-primary {
+  background-color: var(--dash0-color-primary-orange);
+  color: var(--dash0-color-text-primary);
+  border: 1px solid var(--dash0-color-primary-orange);
+  border-radius: 6px;
+  padding: var(--dash0-spacing-sm) var(--dash0-spacing-lg);
+  font-size: var(--dash0-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.dash0-button-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dash0-button-secondary {
+  background-color: transparent;
+  color: var(--dash0-color-text-primary);
+  border: 1px solid var(--dash0-color-border-primary);
+  border-radius: 6px;
+  padding: var(--dash0-spacing-sm) var(--dash0-spacing-lg);
+  font-size: var(--dash0-font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.dash0-button-secondary:hover {
+  background-color: var(--dash0-color-background-tertiary);
+  border-color: var(--dash0-color-primary-orange);
+}
+
+/* Dash0 Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Dash0 component animations */
+.dash0-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.dash0-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.dash0-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.dash0-spin {
+  animation: spin 1s linear infinite;
+}
