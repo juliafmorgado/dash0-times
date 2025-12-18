@@ -1,0 +1,18 @@
+# Vite build outputs
+dist/
+dist-ssr/
+
+# Vite cache
+.vite/
+
+# React specific
+.eslintcache
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Storybook build outputs
+storybook-static

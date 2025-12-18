@@ -1,0 +1,21 @@
+{
+  "name": "dash0-times",
+  "version": "1.0.0",
+  "description": "Dash0 Times - A full-stack demo application for generating realistic telemetry signals",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter frontend dev\" \"pnpm --filter backend dev\" --names \"frontend,backend\" --prefix-colors \"cyan,yellow\"",
+    "install:all": "pnpm install",
+    "build": "pnpm --filter frontend build && pnpm --filter backend build",
+    "start": "pnpm --filter backend start",
+    "clean": "pnpm --filter frontend clean && pnpm --filter backend clean"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
