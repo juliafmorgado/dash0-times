@@ -5,14 +5,19 @@
   "type": "module",
   "main": "src/server.js",
   "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
+    "dev": "node --require @opentelemetry/auto-instrumentations-node/register --watch src/server.js",
+    "start": "node --require @opentelemetry/auto-instrumentations-node/register src/server.js",
+    "dev:no-otel": "node --watch src/server.js",
+    "start:no-otel": "node src/server.js",
     "build": "echo 'No build step required for backend'",
     "clean": "echo 'No clean step required for backend'"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "@opentelemetry/auto-instrumentations-node": "^0.41.0",
+    "sqlite3": "^5.1.6",
+    "node-fetch": "^3.3.2"
   },
   "engines": {
     "node": ">=18.0.0"

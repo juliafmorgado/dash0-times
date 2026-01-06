@@ -57,7 +57,7 @@ function HomePage() {
       {/* Hero image/subheading for additional LCP content */}
       <div className={styles.heroImage}>
         <div className={styles.heroImagePlaceholder}>
-          📊 Observability & Monitoring Hub
+          Observability & Monitoring Hub
         </div>
       </div>
       
@@ -141,6 +141,88 @@ function HomePage() {
               onClick={() => showInfo('This is an info message!', { title: 'Info Demo' })}
             >
               Show Info
+            </button>
+          </div>
+        </div>
+
+        {/* Backend Performance Demo Section */}
+        <div className={styles.demoSection}>
+          <h3>Backend Performance Demo</h3>
+          <p>Test backend endpoints that generate rich telemetry data:</p>
+          <div className={styles.demoButtons}>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/analyze', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => showSuccess(`Analysis completed in ${data.duration}ms!`, { title: 'Analysis Complete' }))
+                .catch(() => showError('Analysis failed!', { title: 'Analysis Error' }))}
+            >
+              Heavy Analysis
+            </button>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/flaky-service')
+                .then(res => res.json())
+                .then(() => showSuccess('Service call succeeded!', { title: 'Service Success' }))
+                .catch(() => showError('Service call failed!', { title: 'Service Error' }))}
+            >
+              Flaky Service
+            </button>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/recommendation')
+                .then(res => res.json())
+                .then(data => showSuccess(`Loaded ${data.recommendations.length} recommendations!`, { title: 'Recommendations' }))
+                .catch(() => showError('Failed to load recommendations!', { title: 'Recommendation Error' }))}
+            >
+              Get Recommendations
+            </button>
+          </div>
+        </div>
+
+        {/* Database & External APIs Demo Section */}
+        <div className={styles.demoSection}>
+          <h3>Database & External APIs Demo</h3>
+          <p>Simulate database queries and external API calls:</p>
+          <div className={styles.demoButtons}>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/database-query')
+                .then(res => res.json())
+                .then(data => showSuccess(`Found ${data.totalArticles} articles, ${data.totalAuthors} authors!`, { title: 'Database Query' }))
+                .catch(() => showError('Database query failed!', { title: 'Database Error' }))}
+            >
+              Database Query
+            </button>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/external-weather')
+                .then(res => res.json())
+                .then(data => showSuccess(`Weather in ${data.location}: ${data.temperature}°C, ${data.condition}`, { title: 'Weather API' }))
+                .catch(() => showError('Weather API failed!', { title: 'Weather Error' }))}
+            >
+              Weather API
+            </button>
+            <button 
+              className={styles.demoButton}
+              onClick={() => fetch('/api/file-operations', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => showSuccess(`File operations completed: ${data.fileName}`, { title: 'File Operations' }))
+                .catch(() => showError('File operations failed!', { title: 'File Error' }))}
+            >
+              File Operations
+            </button>
+            <button 
+              className={styles.demoButton}
+              onClick={() => {
+                const key = `demo-${Date.now()}`;
+                return fetch(`/api/cache-demo/${key}`)
+                  .then(res => res.json())
+                  .then(data => showSuccess(`Cache ${data.source === 'cache' ? 'HIT' : 'MISS'} for key: ${key}`, { title: 'Cache Demo' }))
+                  .catch(() => showError('Cache operation failed!', { title: 'Cache Error' }));
+              }}
+            >
+              Cache Demo
             </button>
           </div>
         </div>

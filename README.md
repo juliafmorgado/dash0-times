@@ -1,8 +1,6 @@
 # Dash0 Times
 
-A full-stack demo application designed to generate realistic telemetry and website monitoring signals. This application simulates a news/docs portal with intentional performance characteristics to demonstrate various web vitals metrics including Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), and Interaction to Next Paint (INP).
-
-The application features Dash0 branding and design language, providing a realistic demo environment for testing monitoring and observability tools.
+A full-stack demo application designed to generate rich backend telemetry for observability demonstrations. This application simulates a news/docs portal with comprehensive backend operations including database queries, external API calls, file operations, cache patterns, and error scenarios to showcase distributed tracing, structured logging, and performance monitoring capabilities.
 
 ## Prerequisites
 
@@ -52,9 +50,8 @@ pnpm dev
 ```
 
 This command will:
-- Start the React frontend on `http://localhost:5173` (Vite dev server)
-- Start the Express backend on `http://localhost:3001`
-- Display colored output with prefixes for easy identification
+- Start the React frontend on `http://localhost:3000` (Vite dev server)
+- Start the Express backend on `http://localhost:3001` with OpenTelemetry auto-instrumentation
 - Automatically restart servers on file changes
 - Kill all processes if one fails
 
@@ -87,67 +84,63 @@ dash0-times/
 │   │   └── hooks/             # Custom React hooks
 │   ├── public/                # Static assets
 │   └── package.json           # Frontend dependencies
-├── backend/                    # Express.js API server
+├── backend/                    # Express.js API server with OpenTelemetry
 │   ├── src/
-│   │   ├── data/              # Mock data and utilities
-│   │   └── server.js          # Main server file
-│   └── package.json           # Backend dependencies
+│   │   ├── data/              # Mock data, utilities, and database setup
+│   │   └── server.js          # Main server file with enhanced telemetry
+│   ├── .env                   # OpenTelemetry configuration
+│   └── package.json           # Backend dependencies (includes OTel packages)
 ├── package.json               # Root workspace configuration
 ├── pnpm-workspace.yaml        # pnpm workspace definition
+├── TELEMETRY_FEATURES.md      # Detailed telemetry documentation
 └── README.md                  # This file
 ```
 
-## Things to Click (Telemetry Generation)
+## Things to Click (Backend Telemetry Generation)
 
-Once the application is running (`pnpm dev`), visit `http://localhost:5173` and perform these actions to generate telemetry signals:
+Once the application is running (`pnpm dev`), visit `http://localhost:3000` and perform these actions to generate backend telemetry signals:
 
-### Core Web Vitals
+### Primary Backend Telemetry Demo
 
-1. **LCP (Largest Contentful Paint)**
-   - Navigate to the home page (`/`)
-   - Observe the large "Dash0 Times" hero title loading
-   - The hero content is designed to be the largest contentful element
+1. **Backend Performance Demo**
+   - **Heavy Analysis**: Click to trigger CPU-intensive computation + database operations (generates performance traces)
+   - **Flaky Service**: Test service reliability with 30% error rate (generates error patterns and traces)
+   - **Get Recommendations**: Enhanced recommendation engine with ML simulation (generates multi-span traces)
 
-2. **CLS (Cumulative Layout Shift)**
-   - Stay on the home page (`/`)
-   - Wait exactly 1.8 seconds after page load
-   - A banner will appear and push content downward, causing measurable layout shift
+2. **Database & External APIs Demo**
+   - **Database Query**: Multi-step SQLite operations with complex queries (generates database spans and query traces)
+   - **Weather API**: External HTTP calls to httpbin.org with realistic delays (generates HTTP client traces)
+   - **File Operations**: Filesystem I/O operations (create, read, write, delete) (generates filesystem spans)
+   - **Cache Demo**: Cache hit/miss patterns with 70% hit rate (generates cache operation traces)
 
-3. **INP (Interaction to Next Paint)**
-   - On the home page, click the "Run analysis" button
-   - This triggers a heavy computation (200-400ms) that blocks the main thread
-   - Results and timing will be displayed after completion
+### Core Application Endpoints (Additional Telemetry)
 
-### API Performance Testing
-
-4. **Articles List Performance**
+3. **Articles List Performance**
    - Navigate to "Articles" (`/articles`)
-   - API call has 50-150ms artificial delay
+   - API call has 50-150ms artificial delay (generates HTTP request traces)
    - Test pagination and tag filtering
 
-5. **Article Detail Performance**
+4. **Article Detail Performance**
    - Click on any article from the articles list
-   - API call has 800-1200ms artificial delay
-   - Observe loading skeleton during fetch
-   - Recommendations sidebar loads separately (200-900ms delay)
+   - API call has 800-1200ms artificial delay (generates slow query traces)
+   - Recommendations sidebar loads separately (generates concurrent request traces)
 
-6. **Search with Error Handling**
+5. **Search with Error Handling**
    - Navigate to "Search" (`/search`)
    - Type any search query (debounced by 300ms)
-   - Search API has 20% chance of returning HTTP 500 error
-   - Try multiple searches to experience both success and error states
+   - Search API has 20% chance of returning HTTP 500 error (generates error traces and patterns)
 
-### Navigation and State Management
+### Frontend Features
 
-7. **Client-side Routing**
+6. **Basic Web Vitals** (For frontend monitoring)
+   - **LCP**: Large "Dash0 Times" hero title loading
+   - **CLS**: Banner appears after 1.8 seconds causing layout shift
+   - **INP**: "Run analysis" button triggers computation blocking main thread
+
+7. **Client-side Navigation**
    - Use navigation menu to switch between pages
    - Test browser back/forward buttons
-   - Observe URL changes without full page reloads
-
-8. **New Tab Functionality**
-   - On articles list, click "Open in new tab" links
-   - Verify original page state is preserved
-   - Compare content between inline and new tab navigation
+   - Open articles in new tabs
 
 ## Available Scripts
 
@@ -173,19 +166,36 @@ pnpm lint     # Run ESLint
 
 ```bash
 cd backend
-pnpm dev      # Start with --watch flag
-pnpm start    # Start production server
+pnpm dev      # Start with OpenTelemetry auto-instrumentation and --watch flag
+pnpm start    # Start production server with OpenTelemetry
+pnpm dev:no-otel    # Start without OpenTelemetry (for debugging)
+pnpm start:no-otel  # Start production without OpenTelemetry
 ```
 
 ## API Endpoints
 
 The backend provides the following endpoints with realistic delays:
 
+### Core Application Endpoints
 - `GET /api/health` - Health check (immediate response)
 - `GET /api/articles` - List articles (50-150ms delay)
 - `GET /api/articles/:id` - Get article details (800-1200ms delay)
 - `GET /api/search?q=query` - Search articles (100-400ms delay, 20% error rate)
 - `GET /api/recommendation` - Get recommendations (200-900ms delay)
+
+### Enhanced Telemetry Endpoints
+- `POST /api/analyze` - Heavy computation + database simulation (500-1300ms)
+- `GET /api/flaky-service` - Service reliability testing (30% error rate, 100-500ms)
+- `GET /api/database-query` - Multi-step SQLite operations (600-1200ms)
+- `GET /api/external-weather` - External API calls to httpbin.org (1100-1700ms)
+- `POST /api/file-operations` - Filesystem I/O operations (150-300ms)
+- `GET /api/cache-demo/:key` - Cache simulation (10-30ms hit, 220-580ms miss)
+
+### OpenTelemetry Integration
+- Automatic instrumentation for HTTP, database, and filesystem operations
+- OTLP export configuration via environment variables
+- Structured logging with trace correlation
+- Real SQLite database operations for authentic database traces
 
 ## Troubleshooting
 
@@ -193,7 +203,7 @@ The backend provides the following endpoints with realistic delays:
 
 **Port Conflicts:**
 - If default ports are in use, the dev servers will automatically find available ports
-- Frontend typically uses 5173, backend uses 3001
+- Frontend typically uses 3000, backend uses 3001
 - Check console output for actual port assignments
 
 **pnpm Not Found:**
@@ -224,7 +234,7 @@ pnpm install
 ```
 
 **CORS Errors:**
-- Backend is configured for `localhost:5173` and `localhost:3000`
+- Backend is configured for `localhost:3000` and `localhost:5173`
 - If frontend runs on different port, update CORS config in `backend/src/server.js`
 
 **Build Failures:**
@@ -235,40 +245,23 @@ pnpm install
 pnpm build
 ```
 
-### Development Tips
-
-**Hot Reload:**
-- Frontend: Vite provides instant hot module replacement
-- Backend: Uses Node.js `--watch` flag for automatic restarts
-
-**Debugging:**
-- Frontend: Use browser DevTools, React DevTools extension
-- Backend: Console logs are displayed with colored prefixes
-- API requests: Check Network tab in browser DevTools
-
-**Performance Monitoring:**
-- Open browser DevTools → Performance tab
-- Record while performing telemetry actions
-- Observe LCP, CLS, and INP measurements in the Performance panel
-
-**Error Testing:**
-- Search functionality has intentional 20% error rate
-- Use browser DevTools → Network tab to see failed requests
-- Error messages are displayed in the UI with toast notifications
-
 ### Environment Variables
 
 The application uses these default configurations:
 
-- Frontend dev server: `http://localhost:5173`
+- Frontend dev server: `http://localhost:3000`
 - Backend server: `http://localhost:3001`
 - Backend PORT can be overridden: `PORT=3002 pnpm dev`
 
-### Browser Compatibility
-
-- Modern browsers with ES2020+ support
-- Chrome, Firefox, Safari, Edge (latest versions)
-- JavaScript modules and fetch API required
+#### OpenTelemetry Configuration (backend/.env)
+```env
+OTEL_SERVICE_NAME=dash0-times-backend
+OTEL_TRACES_EXPORTER=otlp
+OTEL_LOGS_EXPORTER=otlp
+OTEL_LOGS_ENABLED=true
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+```
 
 ## Contributing
 
@@ -279,6 +272,8 @@ When making changes:
 3. Ensure both frontend and backend start successfully
 4. Verify CORS configuration for cross-origin requests
 5. Check that all "things to click" still generate expected signals
+6. Test OpenTelemetry instrumentation is working
+7. Verify new endpoints appear in traces and logs
 
 ## License
 
